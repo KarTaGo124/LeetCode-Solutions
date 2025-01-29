@@ -12,11 +12,7 @@
 int size(ListNode *head)
 {
 	int i = 0;
-	if (head == nullptr)
-	{
-		return i;
-	}
-	while (head->next != nullptr)
+	while (head != nullptr)
 	{
 		i++;
 		head = head->next;
@@ -29,29 +25,19 @@ public:
 	ListNode *removeNthFromEnd(ListNode *head, int n)
 	{
 		auto prevHead = new ListNode(0, head);
-		int tamano = size(prevHead);
+		int tamano = size(head);
 		auto temp = prevHead;
-		if (tamano == n)
+
+		int i = 0;
+		while (i < tamano - n)
 		{
-			auto temp3 = head;
-			head = head->next;
-			temp3->next = nullptr;
-			delete temp3;
-			return head;
+			temp = temp->next;
+			i++;
 		}
-		else
-		{
-			int i = 0;
-			while (i < tamano - n)
-			{
-				temp = temp->next;
-				i++;
-			}
-			auto temp2 = temp->next;
-			temp->next = temp->next->next;
-			temp2->next = nullptr;
-			delete temp2;
-			return head;
-		}
+		auto toDelete = temp->next;
+		temp->next = toDelete->next;
+		delete toDelete;
+
+		return prevHead->next;
 	}
 };

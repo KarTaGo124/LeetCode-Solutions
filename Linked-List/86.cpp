@@ -11,20 +11,19 @@
 class Solution
 {
 public:
-	ListNode *removeElements(ListNode *head, int val)
+	ListNode *partition(ListNode *head, int x)
 	{
-		if (head == nullptr)
-			return nullptr;
-
-		auto prevHead = new ListNode(-1, head);
-
+		auto newNode = new ListNode(-102);
+		auto temp2 = newNode;
+		auto prevHead = new ListNode(-101, head);
 		auto temp = prevHead;
-
 		while (temp->next != nullptr)
 		{
-			if (temp->next->val == val)
+			if (temp->next->val >= x)
 			{
 				auto toDelete = temp->next;
+				temp2->next = new ListNode(temp->next->val);
+				temp2 = temp2->next;
 				temp->next = toDelete->next;
 				delete toDelete;
 			}
@@ -33,6 +32,7 @@ public:
 				temp = temp->next;
 			}
 		}
+		temp->next = newNode->next;
 		return prevHead->next;
 	}
 };

@@ -12,10 +12,9 @@
 int size(ListNode *node)
 {
 	int i = 0;
-	auto temp = node;
-	while (temp != nullptr)
+	while (node != nullptr)
 	{
-		temp = temp->next;
+		node = node->next;
 		i++;
 	}
 	return i;
@@ -23,24 +22,17 @@ int size(ListNode *node)
 
 int value(int position, ListNode *head)
 {
-	if (head == nullptr)
+	auto temp = head;
+	int i = 0;
+	while (i < position)
 	{
-		return -1;
+		temp = temp->next;
+		i++;
 	}
+	if (temp != nullptr)
+		return temp->val;
 	else
-	{
-		auto *temp = head;
-		int i = 0;
-		while (i < position)
-		{
-			temp = temp->next;
-			i++;
-		}
-		if (temp != nullptr)
-			return temp->val;
-		else
-			return -1;
-	}
+		return -1;
 }
 
 ListNode *reverse(ListNode *head)
@@ -60,6 +52,7 @@ ListNode *reverse(ListNode *head)
 	}
 	return newHead;
 }
+
 class Solution
 {
 public:

@@ -11,21 +11,13 @@
 
 int size_list(ListNode *head)
 {
-	if (head == nullptr)
+	int i = 0;
+	while (head != nullptr)
 	{
-		return 0;
+		head = head->next;
+		i++;
 	}
-	else
-	{
-		auto temp = head;
-		int i = 1;
-		while (temp->next != nullptr)
-		{
-			i++;
-			temp = temp->next;
-		}
-		return i;
-	}
+	return i;
 }
 class Solution
 {
@@ -37,23 +29,19 @@ public:
 			k_real = k % size_list(head);
 		else
 			k_real = k;
-		if (head == nullptr)
-			return nullptr;
-		else if (head->next == nullptr)
+		if (head == nullptr || head->next == nullptr)
 			return head;
 		else
 		{
 			for (int i = 0; i < k_real; i++)
 			{
 				auto temp = head;
-				auto temp2 = head->next;
-				while (temp2->next != nullptr)
+				while (temp->next->next != nullptr)
 				{
 					temp = temp->next;
-					temp2 = temp2->next;
 				}
-				temp2->next = head;
-				head = temp2;
+				temp->next->next = head;
+				head = temp->next;
 				temp->next = nullptr;
 			}
 		}
